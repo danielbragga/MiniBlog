@@ -1,5 +1,6 @@
 import styles from "./Register.module.css";
-import { useState, useEffect } from "react";
+
+import { useEffect, useState } from "react";
 
 const Register = () => {
   const [displayName, setDisplayName] = useState("");
@@ -8,7 +9,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setError("");
@@ -18,8 +19,9 @@ const Register = () => {
       email,
       password,
     };
+
     if (password !== confirmPassword) {
-      setError("As senhas são iguais!");
+      setError("As senhas precisam ser iguais.");
       return;
     }
   };
@@ -30,50 +32,52 @@ const Register = () => {
       <p>Crie seu usuário e compartilhe suas histórias</p>
       <form onSubmit={handleSubmit}>
         <label>
-          <span>Nome</span>
+          <span>Nome:</span>
           <input
-            type=""
-            name="displayname"
+            type="text"
+            name="displayName"
             required
             placeholder="Nome do usuário"
-            value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
+            value={displayName}
           />
         </label>
         <label>
-          <span>E-mail</span>
+          <span>E-mail:</span>
           <input
             type="email"
             name="email"
             required
             placeholder="E-mail do usuário"
-            value={email}
             onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
         </label>
         <label>
-          <span>Senha: </span>
+          <span>Senha:</span>
           <input
             type="password"
             name="password"
             required
-            placeholder="Insira sua senha"
-            value={password}
+            placeholder="Insira a senha"
             onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
         </label>
         <label>
-          <span>Confirmação de senha: </span>
+          <span>Confirmação de senha:</span>
           <input
             type="password"
             name="confirmPassword"
             required
-            placeholder="Confirme a sua senha"
-            value={confirmPassword}
+            placeholder="Confirme a senha"
             onChange={(e) => setConfirmPassword(e.target.value)}
+            value={confirmPassword}
           />
         </label>
-        <button classname="btn">Cadastro</button>
+
+        <button className="btn">Cadastrar</button>
+        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );
